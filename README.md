@@ -1,240 +1,58 @@
-<!-- markdownlint-disable first-line-h1 no-inline-html -->
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/runfinch/finch/main/contrib/logo/Finch_Horizontal_White.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/runfinch/finch/main/contrib/logo/Finch_Horizontal_Black.svg">
-  <img alt="Finch logo" width=40% height=auto src="https://raw.githubusercontent.com/runfinch/finch/main/contrib/logo/Finch_Horizontal_Black.svg">
-</picture>
+Alpine-Image
+goos: linux
+goarch: amd64
+cpu: Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz
+BenchmarkContainer/BenchmarkContainerRun-finch-2         	       5	 509099371 ns/op	        58.32 %cpu_avg/op	       100.0 %cpu_peak/op	         0.5090 cpu_seconds/op	    222822 disk_bytes/op	  464350 B/op	    1302 allocs/op
+BenchmarkContainer/BenchmarkContainerRun-docker-2        	       5	 724520426 ns/op	        37.93 %cpu_avg/op	       100.0 %cpu_peak/op	         0.7243 cpu_seconds/op	     82739 disk_bytes/op	  649304 B/op	    1801 allocs/op
+BenchmarkContainer/BenchmarkContainerPull-finch-2        	       5	 520815319 ns/op	        44.33 %cpu_avg/op	       100.0 %cpu_peak/op	         0.5208 cpu_seconds/op	  10067968 disk_bytes/op	  469862 B/op	    1316 allocs/op
+BenchmarkContainer/BenchmarkContainerPull-docker-2       	       5	 599878204 ns/op	        15.27 %cpu_avg/op	        86.67 %cpu_peak/op	         0.5996 cpu_seconds/op	     -3276 disk_bytes/op	  550704 B/op	    1535 allocs/op
+BenchmarkContainer/BenchmarkImageBuild-finch-2           	       5	 909495694 ns/op	        58.27 %cpu_avg/op	       100.0 %cpu_peak/op	         0.9092 cpu_seconds/op	  10172825 disk_bytes/op	  814846 B/op	    2248 allocs/op
+BenchmarkContainer/BenchmarkImageBuild-docker-2          	       5	 434906720 ns/op	        43.62 %cpu_avg/op	       100.0 %cpu_peak/op	         0.4347 cpu_seconds/op	     81920 disk_bytes/op	  400912 B/op	    1129 allocs/op
+BenchmarkContainer/BenchmarkImageDelete-finch-2          	       5	 153457410 ns/op	        59.21 %cpu_avg/op	       100.0 %cpu_peak/op	         0.1534 cpu_seconds/op	  -1984921 disk_bytes/op	  137291 B/op	     416 allocs/op
+BenchmarkContainer/BenchmarkImageDelete-docker-2         	       5	  82041749 ns/op	        53.17 %cpu_avg/op	        83.33 %cpu_peak/op	         0.08200 cpu_seconds/op	       819.0 disk_bytes/op	   77808 B/op	     255 allocs/op
 
-## Hello, Finch
-<!-- markdownlint-restore -->
 
-[![PkgGoDev](https://pkg.go.dev/badge/github.com/runfinch/finch)](https://pkg.go.dev/github.com/runfinch/finch)
-[![Go Report Card](https://goreportcard.com/badge/github.com/runfinch/finch)](https://goreportcard.com/report/github.com/runfinch/finch)
-[![CI](https://github.com/runfinch/finch/actions/workflows/ci.yaml/badge.svg?branch=main)](https://github.com/runfinch/finch/actions/workflows/ci.yaml)
-[![Static Badge](https://img.shields.io/badge/Website-Benchmarks-blue)](https://runfinch.github.io/finch/dev/bench/)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/runfinch/finch?logo=GitHub)](https://github.com/runfinch/finch/releases)
-[![GitHub all releases](https://img.shields.io/github/downloads/runfinch/finch/total?label=all%20time%20downloads)](https://github.com/runfinch/finch/releases/)
+public.ecr.aws/y0o4y9o3/anaconda-pkg-build:latest
+goos: linux
+goarch: amd64
+pkg: github.com/runfinch/finch/benchmark/container
+cpu: Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz
+BenchmarkContainer/BenchmarkContainerRun-finch-2                       5         587066481 ns/op	        70.52 %cpu_avg/op	       100.0 %cpu_peak/op	         0.5870 cpu_seconds/op	    196608 disk_bytes/op	  531952 B/op	    1485 allocs/op
+BenchmarkContainer/BenchmarkContainerPull-finch-2                      5         322638206 ns/op	        37.93 %cpu_avg/op	       100.0 %cpu_peak/op	         0.3226 cpu_seconds/op	         0 disk_bytes/op	  290824 B/op	     832 allocs/op
+BenchmarkContainer/BenchmarkImageBuild-finch-2                         5         38061848792 ns/op	        81.51 %cpu_avg/op	       100.0 %cpu_peak/op	         38.06 cpu_seconds/op	 -94490624 disk_bytes/op	  34279360 B/op	   92556 allocs/op
+BenchmarkContainer/BenchmarkImageDelete-finch-2                        5         135232934 ns/op	        60.61 %cpu_avg/op	       100.0 %cpu_peak/op	         0.1352 cpu_seconds/op	    -49152 disk_bytes/op	  117592 B/op	     362 allocs/op
+BenchmarkContainer/BenchmarkContainerPull-docker-2                     5         647970164 ns/op	        11.20 %cpu_avg/op	       100.0 %cpu_peak/op	         0.6479 cpu_seconds/op	    212992 disk_bytes/op	  600368 B/op	    1680 allocs/op
+BenchmarkContainer/BenchmarkContainerRun-docker-2                      5         681067276 ns/op	        31.08 %cpu_avg/op	       100.0 %cpu_peak/op	         0.6810 cpu_seconds/op	    -32768 disk_bytes/op	  618248 B/op	    1718 allocs/op
+BenchmarkContainer/BenchmarkImageBuild-docker-2                        5         36747285615 ns/op	        67.71 %cpu_avg/op	       100.0 %cpu_peak/op	         36.75 cpu_seconds/op	1715875840 disk_bytes/op	  33705112 B/op	   91012 allocs/op
+BenchmarkContainer/BenchmarkImageDelete-docker-2                       5          119696653 ns/op	        68.33 %cpu_avg/op	       100.0 %cpu_peak/op	         0.1196 cpu_seconds/op	      4096 disk_bytes/op	  108608 B/op	     339 allocs/op
+	 
 
-Finch is an open source client for container development. Its simple installer provides a minimal native client along with an opinionated distribution of other open source components. Rather than creating even more options to reason about and choose from, Finch aims to help promote other projects by making it easy to install and use them, while offering a simple native client to tie it all together.
+public.ecr.aws/soci-workshop-examples/node:latest
+goos: linux
+goarch: amd64
+pkg: github.com/runfinch/finch/benchmark/container
+cpu: Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz
+BenchmarkContainer/BenchmarkContainerRun-finch-2         	      20	3455454585 ns/op	        28.46 %cpu_avg/op	       100.0 %cpu_peak/op	         3.455 cpu_seconds/op	 -26255360 disk_bytes/op	 3131360 B/op	    8510 allocs/op
+BenchmarkContainer/BenchmarkContainerRun-docker-2        	      20	7757108049 ns/op	        18.89 %cpu_avg/op	       100.0 %cpu_peak/op	         7.757 cpu_seconds/op	-394506240 disk_bytes/op	 7074288 B/op	   19173 allocs/op
+BenchmarkContainer/BenchmarkContainerPull-finch-2        	      20	22118403240 ns/op	        66.26 %cpu_avg/op	       100.0 %cpu_peak/op	        22.12 cpu_seconds/op	2334605312 disk_bytes/op	19829840 B/op	   53605 allocs/op
+BenchmarkContainer/BenchmarkContainerPull-docker-2       	      20	44462041302 ns/op	        35.29 %cpu_avg/op	       100.0 %cpu_peak/op	        44.46 cpu_seconds/op	1388736512 disk_bytes/op	40553272 B/op	  109557 allocs/op
+BenchmarkContainer/BenchmarkImageBuild-finch-2           	      20	76127741749 ns/op	        76.52 %cpu_avg/op	       100.0 %cpu_peak/op	        76.13 cpu_seconds/op	1498722304 disk_bytes/op	68551648 B/op	  185225 allocs/op
+BenchmarkContainer/BenchmarkImageBuild-docker-2          	      20	 24342207115 ns/op	        58.95 %cpu_avg/op	       100.0 %cpu_peak/op	        24.34 cpu_seconds/op	1293246464 disk_bytes/op	22239072 B/op	   60135 allocs/op
+BenchmarkContainer/BenchmarkImageDelete-finch-2          	      20	 1041080136 ns/op	        62.38 %cpu_avg/op	       100.0 %cpu_peak/op	         1.041 cpu_seconds/op	-1382612992 disk_bytes/op	  954576 B/op	    2627 allocs/op
+BenchmarkContainer/BenchmarkImageDelete-docker-2         	      20	  117616361 ns/op	        57.67 %cpu_avg/op	       100.0 %cpu_peak/op	         0.1176 cpu_seconds/op	 -27705344 disk_bytes/op	  108768 B/op	     339 allocs/op
 
-Finch provides a simple client which is integrated with [nerdctl](https://github.com/containerd/nerdctl). For the core build/run/push/pull commands, Finch depends upon nerdctl to handle the heavy lifting. It works with [containerd](https://containerd.io) for container management, and with [BuildKit](https://github.com/moby/buildkit) to handle Open Container Initiative (OCI) image builds. These components are all pulled together and run within a virtual machine managed by [Lima](https://github.com/lima-vm/lima).
 
-With Finch, you can leverage these existing projects without chasing down all the details. Just install and start running and building your containers!
-
-## Getting Started with Finch
-
-The project will in the near future have a more full set of documentation and tutorials. For now let's get started here. As mentioned above, `finch` integrates with `nerdctl`. While Finch doesn't implement 100% of the upstream commands, the most common commands are in place and working. The [nerdctl Command Reference](https://github.com/containerd/nerdctl#command-reference) can be relied upon as a starting point for documentation.
-
-### Installing Finch
-
-#### macOS
-
-To get started with Finch on macOS, the prerequisites are:
-
-* macOS catalina (10.15) or higher, newer versions are tested on a best-effort basis
-* Intel or Apple Silicon M1 system for macOS
-* Recommended minimum configuration is 2 CPU, 4 GB memory
-
-Download a release package for your architecture from the [project's GitHub releases](https://github.com/runfinch/finch/releases) page, and once downloaded double click and follow the directions.
-
-##### Installing Finch via [brew](https://brew.sh/)
-
-```sh
-brew install --cask finch
-```
-
-#### Windows
-
-To get started with Finch on Windows, the prerequisites are:
-
-* Windows 10 version 2004 and higher (Build 19041 and higher)
-* AMD64 based Windows system
-* WSL 2 installed (`wsl --install`)
-
-Download an MSI installer from the [project's GitHub releases](https://github.com/runfinch/finch/releases) page, and once downloaded double click and follow the directions.
-
-Once the installation is complete, `finch vm init` is required once to set up the underlying system. This initial setup usually takes about a minute.
-
-```sh
-finch vm init
-INFO[0000] Initializing and starting Finch virtual machine...
-..
-INFO[0067] Finch virtual machine started successfully
-```
-
-### Running containers and building images
-
-You can now run a test container. If you're familiar with container development, you can use the `run` command as you'd expect.
-
-```sh
-finch run --rm public.ecr.aws/finch/hello-finch
-```
-
-If you're new to containers, that is so exciting! Give the command above a try after you've installed and initialized Finch. The `run` command pulls an image locally if it's not already present, and then creates and runs a container for you. Note the handy `--rm` option will delete the container instance once it's done executing.
-
-To build an image, try a quick example from the finch client repository.
-
-```sh
-git clone https://github.com/runfinch/finch.git
-cd finch/contrib/hello-finch
-finch build . -t hello-finch
-..
-```
-
-Again if you're new to containers, you just built a container image. Nice!
-
-The `build` command will work with the build system (the Moby Project's BuildKit in Finch's case) to create an OCI image from a Dockerfile, which is a special sort of recipe for creating an image. This image can then be used to create containers. You can see your locally pulled and built images with the `finch images` command.
-
-Finch makes it easy to build and run containers across architectures with the `--platform` option. When used with the `run` command, it will create a container using the specified architecture. For example, on an Apple Silicon M1 system, `--platform=amd64` will create a container and run processes within it using an x86-64 architecture.
-
-```sh
-uname -ms
-Darwin arm64
-
-finch run --rm --platform=amd64 public.ecr.aws/amazonlinux/amazonlinux uname -ms
-Linux x86_64
-```
-
-You can also use the `--platform` option with builds, making it easy to create multiplatform images.
-
-## Working with Finch
-
-We have plans to create some more documentation and tutorials here geared toward users who are new to containers, as well as some tips and tricks for more advanced users. For now, if you're ready to kick the tires, please do! You'll find most commands and options you're familiar with from other tools to present, and as you'd expect (or, as they are [documented upstream with nerdctl](https://github.com/containerd/nerdctl#command-reference)). Most of the commands we use every day are covered, including volume and network management as well as Compose support. If Finch doesn't do something you want it to, please consider opening an Issue or a Pull Request.
-
-### Finch and other tools
-
-The installer will install Finch and its dependencies in its own area of your system, and it can happily coexist with other container development tools. Finch is a new project and not meant to be a direct drop-in replacement for other tools. Therefore, we don't recommend aliasing or linking other command names to `finch`.
-
-### Configuration
-
-Finch has a simple and extensible configuration.
-
-#### macOS
-
-A configuration file at `${HOME}/.finch/finch.yaml` will be generated on first run. Currently, this config file has options for system resource limits for the underlying virtual machine. These default limits are generated dynamically based on the resources available on the host system, but can be changed by manually editing the config file.
-
-For a full list of configuration options, check [the struct here](https://github.com/runfinch/finch/blob/main/pkg/config/config.go#L34).
-
-An example `finch.yaml` looks like this:
-
-```yaml
-# cpus: the amount of vCPU to dedicate to the virtual machine. (required)
-cpus: 4
-# memory: the amount of memory to dedicate to the virtual machine. (required)
-memory: 4GiB
-# snapshotters: the snapshotters a user wants to use (the first snapshotter will be set as the default snapshotter)
-# Supported Snapshotters List:
-# - soci https://github.com/awslabs/soci-snapshotter/tree/main
-# Once the option has been set the snapshotters will be installed on either finch vm init or finch vm start.
-# The snapshotters binary will be downloaded on the virtual machine and will be configured and ready for use.
-# To change your default snpahotter back to overlayfs, simply remove the snapshotters value from finch.yaml or set snapshotters to `overlayfs`
-# To completely remove the snapshotters' binaries, shell into your VM and remove /usr/local/bin/{snapshotter binary}
-# and remove the snapshotter configuration in the containerd config file found at /etc/containerd/config.toml
-snapshotters: 
-    - soci
-# creds_helpers: a list of credential helpers that will be installed and configured automatically. 
-# Supported Credential Helpers List: 
-# - ecr-login https://github.com/awslabs/amazon-ecr-credential-helper
-# Once the option has been set the credential helper will be installed on either finch vm init or finch vm start. 
-# The binary will be downloaded on the host machine and a config.json will be created and populated inside the ~/.finch/ folder 
-# if it doesn't already exist. If it already exists, the value of credsStore will be overwritten. 
-# To opt out of using the credential helper, remove the value from the credsStore parameter of config.json 
-# and remove the creds_helper value from finch.yaml. 
-# To completely remove the credential helper, either remove the binary from ~/.finch/creds-helpers or remove the creds-helpers
-# folder entirely. (optional)
-creds_helpers: 
-  - ecr-login
-# additional_directories: the work directories that are not supported by default. In macOS, only home directory is supported by default. 
-# For example, if you want to mount a directory into a container, and that directory is not under your home directory, 
-# then you'll need to specify this field to add that directory or any ascendant of it as a work directory. (optional)
-additional_directories:
-  # the path of each additional directory.
-  - path: /Volumes
-# vmType: sets which Hypervisor to use to launch the VM. (optional)
-# Only takes effect when a new VM is launched (only on vm init).
-# One of: "qemu", "vz".
-#   - "qemu": Uses QEMU as the Hypervisor.
-#   - "vz" (default): Uses Virtualization.framework as the Hypervisor.
-#
-# NOTE: prior to version 1.2.0, "qemu" was the default, and it will still be the default for
-# macOS versions that do not support Virtualization.framework (pre-13.0.0).
-vmType: "vz"
-# rosetta: sets whether to enable Rosetta as the binfmt_misc handler for x86_64 
-# binaries inside the VM, as an alternative to qemu user mode emulation. (optional)
-# Only takes effect when a new VM is launched (only on vm init).
-# Only available when using vmType "vz" on Apple Silicon running macOS 13+.
-# If true, also sets vmType to "vz".
-#
-# NOTE: while Rosetta is generally faster than qemu user mode emulation, it causes
-# some performance regressions, as noted in this issue:
-# https://github.com/lima-vm/lima/issues/1269
-rosetta: false
-```
-
-#### Windows
-
-A configuration file at `$env:LOCALAPPDATA\.finch\finch.yaml` will be generated on first run. Currently, this config file does not have options for system resource [limits due to limitations in WSL](https://github.com/microsoft/WSL/issues/8570).
-
-For a full list of configuration options, check [the struct here](pkg/config/config.go#L30).
-
-An example `finch.yaml` looks like this:
-
-```yaml
-# snapshotters: the snapshotters a user wants to use (the first snapshotter will be set as the default snapshotter)
-# Supported Snapshotters List:
-# - soci https://github.com/awslabs/soci-snapshotter/tree/main
-# Once the option has been set the snapshotters will be installed on either finch vm init or finch vm start.
-# The snapshotters binary will be downloaded on the virtual machine and will be configured and ready for use.
-# To change your default snpahotter back to overlayfs, simply remove the snapshotters value from finch.yaml or set snapshotters to `overlayfs`
-# To completely remove the snapshotters' binaries, shell into your VM and remove /usr/local/bin/{snapshotter binary}
-# and remove the snapshotter configuration in the containerd config file found at /etc/containerd/config.toml
-snapshotters: 
-    - soci
-# creds_helpers: a list of credential helpers that will be installed and configured automatically. 
-# Supported Credential Helpers List: 
-# - ecr-login https://github.com/awslabs/amazon-ecr-credential-helper
-# Once the option has been set the credential helper will be installed on either finch vm init or finch vm start. 
-# The binary will be downloaded on the host machine and a config.json will be created and populated inside the ~/.finch/ folder 
-# if it doesn't already exist. If it already exists, the value of credsStore will be overwritten. 
-# To opt out of using the credential helper, remove the value from the credsStore parameter of config.json 
-# and remove the creds_helper value from finch.yaml. 
-# To completely remove the credential helper, either remove the binary from $env:LOCALAPPDATA\.finch\creds-helpers or remove the creds-helpers
-# folder entirely. (optional)
-creds_helpers: 
-  - ecr-login
-
-# sets wsl2 Hypervisor to use to launch the VM. (optional)
-vmType: "wsl2"
-```
-
-### FAQ
-
-This section contains frequently-asked questions regarding working with Finch.
-
-#### How to shell into the VM?
-
-##### macOS
-
-```sh
-LIMA_HOME=/Applications/Finch/lima/data /Applications/Finch/lima/bin/limactl shell finch
-```
-
-##### Windows
-
-```sh
-wsl -d lima-finch
-```
-
-## What's next?
-
-We are excited to start this project in the open, and we'd love to hear from you. If you have ideas or find bugs please open an issue. Please feel free to start a discussion if you have something you'd like to propose or brainstorm. Pull requests are welcome, as well! See the [CONTRIBUTING](CONTRIBUTING.md) doc for more info on contributing, and the path to reviewer and maintainer roles for those interested.
-
-As the project gets a bit of momentum, maintainers will start creating milestones and look to establish a regular release cadence. In time, we'll also start to curate a public roadmap from the community ideas and issues that roll in. We already have some ideas, including:
-
-* More minimal guest OS footprint
-* Linux client support
-* Formal extensibility
-* Continued performance improvement, ongoing
-* Stability and usability improvement, ongoing
-
-If you'd like to chat with us, please find us in the `#finch` channel on the [CNCF slack](https://cloud-native.slack.com).
+public.ecr.aws/soci-workshop-examples/tensorflow_gpu:latest
+goos: linux
+goarch: amd64
+pkg: github.com/runfinch/finch/benchmark/container
+cpu: Intel(R) Xeon(R) Platinum 8259CL CPU @ 2.50GHz
+BenchmarkContainer/BenchmarkContainerRun-finch-2         	      20	3128082038 ns/op	        24.53 %cpu_avg/op	       100.0 %cpu_peak/op	         3.128 cpu_seconds/op	    241664 disk_bytes/op	 2862224 B/op	    7779 allocs/op
+BenchmarkContainer/BenchmarkContainerRun-docker-2        	      20	7451326779 ns/op	        15.13 %cpu_avg/op	       100.0 %cpu_peak/op	         7.451 cpu_seconds/op	-374542336 disk_bytes/op	 6833928 B/op	   18520 allocs/op
+BenchmarkContainer/BenchmarkContainerPull-finch-2        	      20	10246951854 ns/op	        60.68 %cpu_avg/op	       100.0 %cpu_peak/op	        10.25 cpu_seconds/op	1332887552 disk_bytes/op	 9208952 B/op	   24920 allocs/op
+BenchmarkContainer/BenchmarkContainerPull-docker-2       	      20	19823840965 ns/op	        68.15 %cpu_avg/op	       100.0 %cpu_peak/op	        19.82 cpu_seconds/op	1406275584 disk_bytes/op	18152184 B/op	   49073 allocs/op
+BenchmarkContainer/BenchmarkImageBuild-finch-2           	      20	339181411461 ns/op	        71.97 %cpu_avg/op	       100.0 %cpu_peak/op	       339.2 cpu_seconds/op	9682067456 disk_bytes/op	307573008 B/op	  829974 allocs/op
+BenchmarkContainer/BenchmarkImageBuild-docker-2          	      20	 134969791209 ns/op	        65.45 %cpu_avg/op	       100.0 %cpu_peak/op	       135.0 cpu_seconds/op	     6976700416 disk_bytes/op	123845464 B/op	  334218 allocs/op
+BenchmarkContainer/BenchmarkImageDelete-finch-2          	      20	 1130480301 ns/op	        55.35 %cpu_avg/op	       100.0 %cpu_peak/op	         1.130 cpu_seconds/op	-1387474944 disk_bytes/op	 1031552 B/op	    2836 allocs/op
+BenchmarkContainer/BenchmarkImageDelete-docker-2         	      20	  132564220 ns/op	        75.76 %cpu_avg/op	       100.0 %cpu_peak/op	         0.1325 cpu_seconds/op	    -12288 disk_bytes/op	  118520 B/op	     366 allocs/op
+	
