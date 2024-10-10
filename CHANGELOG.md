@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/coderbirju/finch/compare/v1.0.1...v1.1.0) (2024-10-10)
+
+
+### Features
+
+* Add more metrics for benchmarks ([660e26f](https://github.com/coderbirju/finch/commit/660e26f641ee4166396905a76540e26862f13f1b))
+
 ## [1.0.1](https://github.com/coderbirju/finch/compare/v1.0.1...v1.0.1) (2024-10-09)
 
 
