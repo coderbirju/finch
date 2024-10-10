@@ -41,7 +41,9 @@ jobs:
             sudo pkill '^socket_vmnet'
           fi
       - name: Install Dependencies
-        run: sudo apt-get install -y golang lz4 automake autoconf libtool yq
+        run: | 
+          sudo apt-get install -y golang lz4 automake autoconf libtool
+          sudo snap install yq
       - name: Build project
         run: |
           make
