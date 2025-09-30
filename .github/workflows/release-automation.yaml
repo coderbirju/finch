@@ -2,6 +2,9 @@ name: Release Finch latest version
 on:
   workflow_dispatch:
   workflow_call:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   get-latest-tag:
@@ -19,114 +22,10 @@ jobs:
       - name: 'Get the latest tag'
         id: latest-tag
         uses: "WyriHaximus/github-action-get-previous-tag@04e8485ecb6487243907e330d522ff60f02283ce" # v1.4.0
-    
-  build-and-test-finch-pkg:
-    needs: get-latest-tag
-    uses: ./.github/workflows/build-and-test-pkg.yaml
-    secrets: inherit
-    with:
-      ref_name: ${{ needs.get-latest-tag.outputs.tag }}
-
-  upload-pkg-and-dependency-source-code-to-release:
-    needs:
-      - get-latest-tag
-      - build-and-test-finch-pkg
-    uses: ./.github/workflows/upload-installer-to-release.yaml
-    permissions:
-      # This is required for configure-aws-credentials to request an OIDC JWT ID token to access AWS resources later on.
-      # More info: https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#adding-permissions-settings
-      id-token: write
-      contents: write # this is used to upload to the release
-    secrets: inherit
-    with:
-      ref_name: ${{ needs.get-latest-tag.outputs.tag }}
-  
-  build-and-test-finch-msi:
-    needs: get-latest-tag
-    uses: ./.github/workflows/build-and-test-msi.yaml
-    permissions:
-      # This is required for configure-aws-credentials to request an OIDC JWT ID token to access AWS resources later on.
-      # More info: https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#adding-permissions-settings
-      id-token: write
-      contents: read # this is required for actions/checkout
-    secrets: inherit
-    with:
-      ref_name: ${{ needs.get-latest-tag.outputs.tag }}
-  
-  upload-msi-to-release:
-    needs:
-      - get-latest-tag
-      - build-and-test-finch-msi
-    uses: ./.github/workflows/upload-msi-to-release.yaml
-    permissions:
-      # This is required for configure-aws-credentials to request an OIDC JWT ID token to access AWS resources later on.
-      # More info: https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#adding-permissions-settings
-      id-token: write
-      contents: read # this is required for actions/checkout
-    secrets: inherit
-    with:
-      ref_name: ${{ needs.get-latest-tag.outputs.tag }}
-
-  build-and-test-finch-deb:
-    needs: get-latest-tag
-    uses: ./.github/workflows/build-and-test-deb.yaml
-    permissions:
-      # This is required for configure-aws-credentials to request an OIDC JWT ID token to access AWS resources later on.
-      # More info: https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#adding-permissions-settings
-      id-token: write
-      contents: read # this is required for actions/checkout
-    secrets: inherit
-    with:
-      ref_name: ${{ needs.get-latest-tag.outputs.tag }}
-  
-  upload-deb-to-release:
-    needs:
-      - get-latest-tag
-      - build-and-test-finch-deb
-    uses: ./.github/workflows/upload-deb-to-release.yaml
-    permissions:
-      # This is required for configure-aws-credentials to request an OIDC JWT ID token to access AWS resources later on.
-      # More info: https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#adding-permissions-settings
-      id-token: write 
-      contents: write # this is required for uploading the release assets
-    secrets: inherit
-    with:
-      ref_name: ${{ needs.get-latest-tag.outputs.tag }}
-    
-  update-latest-version-in-s3:
-    needs: 
-      - get-latest-tag
-      - upload-pkg-and-dependency-source-code-to-release
-      - upload-msi-to-release
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@a03048d87541d1d9fcf2ecf528a4a65ba9bd7838 # v5.0.0
-        with:
-          role-to-assume: ${{ secrets.ROLE }}
-          role-session-name: update-latest-version-in-s3
-          aws-region: ${{ secrets.REGION }}
-          
-      - name: Update latest version in S3
-        run: |
-          # Create latest-version.json with the latest Finch release version to track updates
-          cat > latest-version.json << EOF
-          {
-            "latest_version": "${{ needs.get-latest-tag.outputs.tag }}"
-          }
-          EOF
-          
-          # Upload to S3
-          aws s3 cp latest-version.json s3://${{ secrets.ARTIFACT_BUCKET_NAME }}/manifest/latest-version.json --content-type "application/json"
-
+        
   upload-release-definition-to-s3:
     needs: 
       - get-latest-tag
-      - upload-pkg-and-dependency-source-code-to-release
-      - upload-msi-to-release
     runs-on: ubuntu-latest
     permissions:
       id-token: write
