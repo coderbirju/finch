@@ -22,7 +22,7 @@ jobs:
       - name: 'Get the latest tag'
         id: latest-tag
         uses: "WyriHaximus/github-action-get-previous-tag@04e8485ecb6487243907e330d522ff60f02283ce" # v1.4.0
-        
+      
   upload-release-definition-to-s3:
     needs: 
       - get-latest-tag
@@ -34,9 +34,9 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@a03048d87541d1d9fcf2ecf528a4a65ba9bd7838 # v5.0.0
         with:
-          role-to-assume: ${{ secrets.TOOLBOX_TRIGGER_ROLE }}
+          role-to-assume: ${{ vars.AWS_RELEASE_TRIGGER_ROLE }}
           role-session-name: upload-release-definition-to-s3
-          aws-region: ${{ secrets.TOOLBOX_TRIGGER_REGION }}
+          aws-region: ${{ vars.AWS_RELEASE_TRIGGER_REGION }}
           
       - name: Create and upload release definition to S3
         run: |
@@ -47,9 +47,7 @@ jobs:
           # Create release definition JSON file
           cat > "release-def-${VERSION_NO_V}.json" << EOF
           {
-              "tag_name": "${{ needs.get-latest-tag.outputs.tag }}",
-              "source_s3uri": "s3://finch-installer-private/",
-              "source_access_role": "arn:aws:iam::090529234398:role/BundlerRole",
+              "tag_name": "${VERSION}",
               "assets": [
                   {
                       "name": "Finch-${{ needs.get-latest-tag.outputs.tag }}-aarch64.pkg",
@@ -66,4 +64,4 @@ jobs:
           EOF
           
           # Upload to S3
-          aws s3 cp "release-def-${VERSION_NO_V}.json" s3://${{ secrets.TOOLBOX_TRIGGER_BUCKET }}/manifest/release-def-${VERSION_NO_V}.json --content-type "application/json"
+          aws s3 cp "release-def-${VERSION_NO_V}.json" s3://${{ vars.AWS_RELEASE_TRIGGER_BUCKET }}/manifest/release-def-${VERSION_NO_V}.json --content-type "application/json"
