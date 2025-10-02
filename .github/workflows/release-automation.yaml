@@ -47,9 +47,7 @@ jobs:
           # Create release definition JSON file
           cat > "release-def-${VERSION_NO_V}.json" << EOF
           {
-              "tag_name": "${{ needs.get-latest-tag.outputs.tag }}",
-              "source_s3uri": "s3://finch-installer-private/",
-              "source_access_role": "arn:aws:iam::090529234398:role/BundlerRole",
+              "tag_name": "${VERSION}",
               "assets": [
                   {
                       "name": "Finch-${{ needs.get-latest-tag.outputs.tag }}-aarch64.pkg",
