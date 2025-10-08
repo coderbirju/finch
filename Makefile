@@ -38,6 +38,7 @@ MIN_MACOS_VERSION ?= 11.0
 
 FINCH_DAEMON_LOCATION_ROOT ?= $(FINCH_OS_IMAGE_LOCATION_ROOT)/finch-daemon
 FINCH_DAEMON_LOCATION ?= $(FINCH_DAEMON_LOCATION_ROOT)/finch-daemon
+FINCH_DAEMON_CREDHELPER_LOCATION ?= $(FINCH_DAEMON_LOCATION_ROOT)/docker-credential-finch
 
 GOOS ?= $(shell $(GO) env GOOS)
 ifeq ($(GOOS),windows)
@@ -334,6 +335,23 @@ test-e2e-daemon:
 	  --subject="$(OUTDIR)/bin/$(BINARYNAME)" \
 	  --daemon-context-subject-prefix="$(OUTDIR)/lima/bin/limactl shell finch sudo" \
 	  --daemon-context-subject-env="LIMA_HOME=$(OUTDIR)/lima/data"
+
+# TODO: Blkio devices are not getting created in test environment, skipping for now
+.PHONY: test-e2e-daemon-linux
+test-e2e-daemon-linux:
+	# Create symlink for buildkit socket path compatibility
+	mkdir -p /run/buildkit
+	mkdir -p /var/lib/finch/buildkit
+	ln -sf /var/lib/finch/buildkit/buildkitd.sock /run/buildkit/buildkitd.sock || true
+	cd $(FINCH_CORE_DIR)/src/finch-daemon && \
+	DOCKER_HOST="unix:///run/finch.sock" \
+	DOCKER_API_VERSION="v1.41" \
+	TEST_E2E=1 \
+	go test ./e2e -p 1 -timeout 2h -test.v -ginkgo.v \
+	-ginkgo.flake-attempts=3 \
+	-ginkgo.skip="should create container with specified blkio settings options" \
+	-ginkgo.randomize-all  -ginkgo.json-report=$(REPORT_DIR)/$(RUN_ID)-$(RUN_ATTEMPT)-e2e-daemon-report.json \
+    --subject="/usr/bin/finch" 
 
 .PHONY: test-benchmark
 test-benchmark:

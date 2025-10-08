@@ -207,6 +207,13 @@ rosetta: false
 # dockercompat: a configuration parameter to activate finch functionality to accept Docker-like commands and arguments.
 # For running DevContainers on Finch, this functionality will convert Docker-like arguments into compatible nerdctl commands and arguments.
 dockercompat: true
+
+# experimental: enable experimental features (optional)
+#
+# Supported features:
+# - mountInotify https://lima-vm.io/docs/config/mount/#mount-inotify
+experimental:
+    mountInotify: true
 ```
 
 #### Windows
@@ -248,6 +255,13 @@ vmType: "wsl2"
 # dockercompat: a configuration parameter to activate finch functionality to accept Docker-like commands and arguments.
 # For running DevContainers on Finch, this functionality will convert Docker-like arguments into compatible nerdctl commands and arguments.
 dockercompat: true
+
+# experimental: experimental features to enable (optional)
+#
+# Supported features:
+# - mountInotify https://lima-vm.io/docs/config/mount/#mount-inotify
+experimental:
+    mountInotify: true
 ```
 
 ### FAQ
@@ -281,3 +295,9 @@ As the project gets a bit of momentum, maintainers will start creating milestone
 * Stability and usability improvement, ongoing
 
 If you'd like to chat with us, please find us in the `#finch` channel on the [CNCF slack](https://cloud-native.slack.com).
+
+# Reporting an issue
+
+If you encounter anything that seems wrong, please check out our [issues](https://github.com/runfinch/finch/issues) tab first — someone may have already encountered your problem! If it's there, please add to the existing issue thread.
+
+If you can't find an existing issue, feel free to open a new one. As a remninder, anything related to security should NOT go through regular reporting channels. Please refer to [Security](https://github.com/runfinch/finch?tab=security-ov-file#reporting-security-issues) for guidance on how to report such issues.
