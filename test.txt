@@ -1,0 +1,1 @@
+> [!IMPORTANT]\n> Please verify the following before merging this PR.\n> -[ ] The Sync Submodules wortkflow has completed successfully in finch-core repo. \n> -[ ] The Sync Submodules and Dependencies Workflow has completed successfully in this repo
