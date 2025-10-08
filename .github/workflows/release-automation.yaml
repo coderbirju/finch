@@ -3,6 +3,10 @@ on:
   workflow_dispatch:
   workflow_call:
 
+permissions:
+  id-token: write
+  contents: write
+    
 jobs:
   get-latest-tag:
     name: Get the latest release tag
@@ -62,7 +66,7 @@ jobs:
       # This is required for configure-aws-credentials to request an OIDC JWT ID token to access AWS resources later on.
       # More info: https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#adding-permissions-settings
       id-token: write
-      contents: read # this is required for actions/checkout
+      contents: write # this is required for actions/checkout
     secrets: inherit
     with:
       ref_name: ${{ needs.get-latest-tag.outputs.tag }}
@@ -74,7 +78,7 @@ jobs:
       # This is required for configure-aws-credentials to request an OIDC JWT ID token to access AWS resources later on.
       # More info: https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect#adding-permissions-settings
       id-token: write
-      contents: read # this is required for actions/checkout
+      contents: write # this is required for actions/checkout
     secrets: inherit
     with:
       ref_name: ${{ needs.get-latest-tag.outputs.tag }}
@@ -101,7 +105,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
-      contents: read
+      contents: write
     steps:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@a03048d87541d1d9fcf2ecf528a4a65ba9bd7838 # v5.0.0
