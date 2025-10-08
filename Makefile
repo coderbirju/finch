@@ -336,7 +336,7 @@ test-e2e-daemon:
 	  --daemon-context-subject-prefix="$(OUTDIR)/lima/bin/limactl shell finch sudo" \
 	  --daemon-context-subject-env="LIMA_HOME=$(OUTDIR)/lima/data"
 
-# TODO: Blkio devices are not getting created in test environment, skipping for now
+# TODO: Blkio devices are not getting created in test environment, skipping for now - testing these
 .PHONY: test-e2e-daemon-linux
 test-e2e-daemon-linux:
 	# Create symlink for buildkit socket path compatibility

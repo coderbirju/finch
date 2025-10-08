@@ -3,6 +3,9 @@ on:
   workflow_dispatch:
   workflow_call:
 
+permissions:
+  id-token: write
+    
 jobs:
   get-latest-tag:
     name: Get the latest release tag
