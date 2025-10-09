@@ -1,0 +1,59 @@
+name: Deb Canary
+
+on:
+  # This workflow will run from the release-automation.yaml automation on each merge
+  workflow_dispatch:
+    inputs:
+      ref_name:
+        required: true
+        type: string
+  workflow_call:
+    inputs:
+      ref_name:
+        required: true
+        type: string
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**.go'
+      - 'go.mod'
+      - 'go.sum'
+      - '.github/workflows/e2e-macos.yaml'
+      - '.github/workflows/e2e-windows.yaml'
+      - '.github/workflows/e2e-linux.yaml'
+      - 'contrib/packaging/**'
+      - 'deps/**'
+      - 'finch.yaml.d/**'
+      - 'winres'
+      - 'Makefile*'
+      - '.golangci.yaml'
+      - '!contrib/hello-finch/**'
+# This workflow will run every 5 min
+  schedule:
+    - cron: '*/5 * * * *'
+  
+jobs:
+  canary-deb:
+    # define all different arch's our supported CodeBuild fleets can run on
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+        - name: Clean ubuntu runner workspace
+          run: |
+            rm -rf ${{ github.workspace }}/*      
+        - name: Install Finch with APT
+          run: |
+            sudo apt install runfinch-finch -y
+        - name: Verify version
+          run: |
+            version=$(finch -v)
+            if [[ $version == "finch version ${{inputs.ref_name}}" ]]; then
+                echo "Version matches: $version"
+            else
+                echo "Version mismatch. Found: $version, Expected: ${{inputs.ref_name}}"
+                exit 1
+            fi
+        - name: Clean up environment 
+          run: |
+            sudo apt remove runfinch-finch -y
