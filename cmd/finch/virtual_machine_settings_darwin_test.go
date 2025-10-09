@@ -26,6 +26,7 @@ func TestNewSettingsMCommand(t *testing.T) {
 	assert.Equal(t, cmd.Name(), "settings")
 }
 
+// testing the deb workflow
 func TestSettingsVMAction_runAdapter(t *testing.T) {
 	t.Parallel()
 
