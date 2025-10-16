@@ -6,7 +6,7 @@ on:
 name: release-please
 
 permissions:
-  contents: read
+  contents: write # Required for trigger-release-automation job
   pull-requests: write
 
 jobs:
@@ -25,4 +25,7 @@ jobs:
     name: Trigger release-automation.yaml if PR is merged
     needs: [release-please]
     if: ${{ needs.release-please.outputs.release_created == 'true' }}
+    permissions:
+      contents: write    # Required for uploading release assets
+      id-token: write    # Required for AWS OIDC authentication
     uses: ./.github/workflows/release-automation.yaml
