@@ -6,7 +6,7 @@ on:
 name: release-please
 
 permissions:
-  contents: write
+  contents: write # Required for trigger-release-automation job
   pull-requests: write
 
 jobs:
